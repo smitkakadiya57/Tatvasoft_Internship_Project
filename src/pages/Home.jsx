@@ -1,37 +1,44 @@
-import { FormControl, FormHelperText, MenuItem, Select } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 const Home = () => {
-  const [age, setAge] = useState("");
+  const [counter, setCounter] = useState(0);
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const increment = () => {
+    setCounter((prev) => prev + 1);
+  };
+
+  const decrement = () => {
+    setCounter((prev) => prev - 1);
+  };
+
+  const reset = () => {
+    setCounter(0);
   };
 
   return (
     <>
-      <Stack spacing={2} direction="row">
-        <Button variant="contained">Contained</Button>
-        <Button variant="outlined">Outlined</Button>
-      </Stack>
-
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <Select
-          value={age}
-          onChange={handleChange}
-          displayEmpty
-          inputProps={{ "aria-label": "Without label" }}
+      <Container maxWidth="lg" >
+        <h1>Home Page</h1>
+        <Typography gutterBottom variant="h5" component="div">
+          {counter}
+        </Typography>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 1, sm: 2, md: 4 }}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-        <FormHelperText>Select your age</FormHelperText>
-      </FormControl>
+          <Button size="small" variant="contained" onClick={increment}>
+            Increment
+          </Button>
+          <Button size="small" variant="contained" onClick={decrement}>
+            Decrement
+          </Button>
+          <Button size="small" variant="contained" onClick={reset}>
+            Reset
+          </Button>
+        </Stack>
+      </Container>
     </>
   );
 };
