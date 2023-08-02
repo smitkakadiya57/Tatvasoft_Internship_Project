@@ -7,7 +7,7 @@ const AppWrapper = ({ children }) => {
         display: "flex",
         flexDirection: "column",
         minHeight: "100vh",
-        margin: "0",
+        
       }}
     >
       {children}
