@@ -7,38 +7,63 @@ import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { FormHelperText } from "@mui/material";
+import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import authService from "../services/auth.service";
+import { useNavigate } from "react-router-dom";
 const initialValues = {
-  fname: "",
-  lname: "",
+  firstName: "",
+  lastName: "",
   email: "",
-  pass: "",
-  cpass: "",
-  role: "",
+  roleId: 2,
+  password: "",
+  confirmPassword: "",
 };
 
+
+const roleList = [
+  { id: 2, name: "buyer" },
+  { id: 3, name: "seller" },
+];
+
+
 const registerSchema = Yup.object({
-  fname: Yup.string().min(2).max(25).required("please enter your first name"),
-  lname: Yup.string().min(2).max(25).required("please enter your last name"),
+  firstName: Yup.string().min(2).max(25).required("please enter your first name"),
+  lastName: Yup.string().min(2).max(25).required("please enter your last name"),
   email: Yup.string().email().required("Please enter your email"),
-  pass: Yup.string().min(6).required("Pleaase enter password with min 6 char"),
-  cpass: Yup.string()
+  password: Yup.string().min(6).required("Please enter password with min 6 char"),
+  confirmPassword: Yup.string()
     .required()
-    .oneOf([Yup.ref("pass"), null], "Password must match"),
+    .oneOf([Yup.ref("password"), null], "Password must match"),
+    roleId: Yup.number().required("Role is required"),
 });
 
 const Register = () => {
+
+const navigate=useNavigate();
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: initialValues,
     validationSchema:registerSchema,
     onSubmit: (values) => {
-      console.log("form vals", values);
-      alert("sucessfull");
+      // console.log("form vals", values);
+      // alert("sucessfull");
+      delete values.confirmPassword;
+      authService.create(values).then((res) => {
+        navigate("/login");
+        toast.success("Successfully registered");
+      });
     },
   });
 
+  // const onSubmit = (data) => {
+  //   delete data.confirmPassword;
+  //   authService.create(data).then((res) => {
+  //     navigate("/login");
+  //     toast.success("Successfully registered");
+  //   });
+  // };
 
   return (
     <Container maxWidth="lg" sx={{margin:"1.5rem auto"}}>
@@ -69,12 +94,12 @@ const Register = () => {
                   type="text"
                   size="small"
                   fullWidth
-                  name="fname"
-                  value={values.fname}
+                  name="firstName"
+                  value={values.firstName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={errors.fname && touched.fname ? errors.fname :null}
-                  error={errors.fname && touched.fname}
+                  helperText={errors.firstName && touched.firstName ? errors.firstName :null}
+                  error={errors.firstName && touched.firstName}
                 />
               
               </Grid>
@@ -86,12 +111,12 @@ const Register = () => {
                   type="text"
                   size="small"
                   fullWidth
-                  name="lname"
-                  value={values.lname}
+                  name="lastName"
+                  value={values.lastName}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={errors.lname && touched.lname ? errors.lname :null}
-                  error={errors.lname && touched.lname}
+                  helperText={errors.lastName && touched.lastName ? errors.lastName :null}
+                  error={errors.lastName && touched.lastName}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -115,16 +140,23 @@ const Register = () => {
                   Role *
                 </Typography>
                 <Select
-                  value={values.role}
+                  value={values.roleId}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  name="role"
+                  name="roleId"
                   size="small"
                   fullWidth
                  displayEmpty
                 >
-                  <MenuItem value="User" defaultChecked>User</MenuItem>
-                  <MenuItem value="Admin">Admin</MenuItem>
+                  {roleList.length > 0 &&
+                                roleList.map((role) => (
+                                  <MenuItem
+                                    value={role.id}
+                                    key={"name" + role.id}
+                                  >
+                                    {role.name}
+                                  </MenuItem>
+                                ))}
                 </Select>
                 
                 
@@ -146,12 +178,12 @@ const Register = () => {
                   type="password"
                   size="small"
                   fullWidth
-                  name="pass"
-                  value={values.pass}
+                  name="password"
+                  value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={errors.pass && touched.pass ? errors.pass :null}
-                  error={errors.pass && touched.pass}
+                  helperText={errors.password && touched.password ? errors.password :null}
+                  error={errors.password && touched.password}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -162,12 +194,12 @@ const Register = () => {
                   type="password"
                   size="small"
                   fullWidth
-                  name="cpass"
-                  value={values.cpass}
+                  name="confirmPassword"
+                  value={values.confirmPassword}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  helperText={errors.cpass && touched.cpass ? errors.cpass :null}
-                  error={errors.cpass && touched.cpass}
+                  helperText={errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword :null}
+                  error={errors.confirmPassword && touched.confirmPassword}
                 />
               </Grid>
             </Grid>

@@ -12,6 +12,11 @@ import Footer from "./components/global/Footer";
 
 import "./App.css";
 
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -24,6 +29,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
+        <ToastContainer />
         <Footer />
       </AppWrapper>
     </BrowserRouter>

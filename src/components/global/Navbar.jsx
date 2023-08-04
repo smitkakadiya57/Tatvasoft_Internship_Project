@@ -6,7 +6,7 @@ import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import logo from "../../assets/site-logo.svg";
+import logo from "../../assets/images/site-logo.svg";
 
 import { Link } from "react-router-dom";
 

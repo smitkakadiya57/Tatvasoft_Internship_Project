@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import logo from "../../assets/site-logo.svg";
+import logo from "../../assets/images/site-logo.svg";
 const Footer = () => {
   return (
     <Box
