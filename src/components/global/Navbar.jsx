@@ -10,17 +10,38 @@ import logo from "../../assets/images/site-logo.svg";
 
 import { Link } from "react-router-dom";
 
+import { RoutePaths } from "./../../utils/enum";
+import Shared from "../../utils/shared";
+import { useMemo } from "react";
+
 const linkStyle = {
   textDecoration: "none",
 };
 
 const Navbar = () => {
+  const Style = {
+    display: "flex",
+    gap: "20px",
+  };
 
+  // temporary user
+  const user = {
+    id: "xyz",
+    roleId: 1,
+    name: "ramesh",
+  };
 
-const Style={
-    display:"flex",
-    gap:"20px"
+  const items = useMemo(() => {
+    return Shared.NavigationItems.filter(
+      (item) =>
+        !item.access.length || item.access.includes(user.roleId)
+    );
+  }, [user]);
+
+const logOut=()=>{
+  //authcontext se sign out karna hai 
 }
+
 
 
   return (
@@ -32,32 +53,52 @@ const Style={
           height: "92px",
         }}
       >
-        <img src={logo} alt="logo" style={{width:"180px"}} />
+        <img src={logo} alt="logo" style={{ width: "180px" }} />
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <Stack
             direction="row"
             spacing={1}
             divider={<Divider orientation="vertical" flexItem />}
           >
-            <Link to="/login" style={linkStyle}>
-              <Button
-                variant="text"
-                color="error"
-                sx={{ textTransform: "capitalize" }}
-              >
-                Login
-              </Button>
-            </Link>
-            <Link to="/register" style={linkStyle}>
-              <Button
-                variant="text"
-                color="error"
-                sx={{ textTransform: "capitalize" }}
-              >
-                Register
-              </Button>
-            </Link>
-            <Link to="/book" style={linkStyle}>
+            {!user.id && (
+              <>
+                <Link to={RoutePaths.Login} style={linkStyle}>
+                  <Button
+                    variant="text"
+                    color="error"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link to={RoutePaths.Register} style={linkStyle}>
+                  <Button
+                    variant="text"
+                    color="error"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    Register
+                  </Button>
+                </Link>
+              </>
+            )}
+            {items.map((item,index)=>{
+              return(
+                <Link to={item.route} style={linkStyle} key={index}>
+                  <Button
+                    variant="text"
+                    color="error"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {item.name}
+                  </Button>
+                </Link>
+              )
+
+            })
+
+            }
+            {/* <Link to="/book" style={linkStyle}>
               <Button
                 variant="text"
                 color="error"
@@ -65,7 +106,7 @@ const Style={
               >
                 Books
               </Button>
-            </Link>
+            </Link> */}
           </Stack>
           <Link to="/cart" style={linkStyle}>
             <Button
@@ -77,6 +118,17 @@ const Style={
               Cart
             </Button>
           </Link>
+          {user.id &&  <Link to="/book" style={linkStyle}>
+            <Button
+              variant="text"
+              color="error"
+              sx={{ textTransform: "capitalize" }}
+              onClick={()=>logOut}
+            >
+              Logout
+            </Button>
+          </Link>}
+          
         </Box>
       </Box>
     </Container>
