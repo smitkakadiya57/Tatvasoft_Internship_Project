@@ -22,9 +22,9 @@ const Book = () => {
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 5 }} alignItems="stretch">
         {books.map((ele) => {
           return (
-            <Grid item md={3}>
+            <Grid item md={3}  key={ele.name}>
               <BookCard
-                key={ele.name}
+               
                 title={ele.name}
                 price={ele.price}
                 author={ele.category}

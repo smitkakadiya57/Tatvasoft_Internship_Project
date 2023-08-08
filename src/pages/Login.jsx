@@ -11,6 +11,7 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authService from "../services/auth.service";
+import { useAuthContext } from "../context/auth";
 
 const linkStyle = {
   textDecoration: "none",
@@ -23,11 +24,13 @@ const initialValues = {
 
 const loginSchema = Yup.object({
   email: Yup.string().email().required("Please enter your email"),
-  password: Yup.string().min(6).required("Pleaase enter password with min 6 char"),
+  password: Yup.string()
+    .min(6)
+    .required("Please enter password with min 6 char"),
 });
 const Login = () => {
-
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const authContext = useAuthContext();
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -35,6 +38,7 @@ const Login = () => {
       validationSchema: loginSchema,
       onSubmit: (values) => {
         authService.login(values).then((res) => {
+          authContext.setUser(res);
           toast.success("Login successfully");
           navigate("/book");
         });
@@ -42,7 +46,7 @@ const Login = () => {
     });
 
   return (
-    <Container maxWidth="lg" sx={{margin:"1.5rem auto"}}>
+    <Container maxWidth="lg" sx={{ margin: "1.5rem auto" }}>
       <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         <Typography
           variant="h4"
@@ -137,7 +141,9 @@ const Login = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     helperText={
-                      errors.password && touched.password ? errors.password : null
+                      errors.password && touched.password
+                        ? errors.password
+                        : null
                     }
                     error={errors.password && touched.password}
                   />

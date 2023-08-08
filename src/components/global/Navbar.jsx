@@ -14,6 +14,8 @@ import { RoutePaths } from "./../../utils/enum";
 import Shared from "../../utils/shared";
 import { useMemo } from "react";
 
+import { useAuthContext } from "../../context/auth";
+
 const linkStyle = {
   textDecoration: "none",
 };
@@ -24,25 +26,18 @@ const Navbar = () => {
     gap: "20px",
   };
 
-  // temporary user
-  const user = {
-    id: "xyz",
-    roleId: 1,
-    name: "ramesh",
-  };
+  const authContext = useAuthContext();
 
   const items = useMemo(() => {
     return Shared.NavigationItems.filter(
       (item) =>
-        !item.access.length || item.access.includes(user.roleId)
+        !item.access.length || item.access.includes(authContext.user.roleId)
     );
-  }, [user]);
+  }, [authContext.user]);
 
-const logOut=()=>{
-  //authcontext se sign out karna hai 
-}
-
-
+  const logOut = () => {
+    authContext.signOut();
+  };
 
   return (
     <Container maxWidth="lg">
@@ -60,7 +55,7 @@ const logOut=()=>{
             spacing={1}
             divider={<Divider orientation="vertical" flexItem />}
           >
-            {!user.id && (
+            {!authContext.user.id && (
               <>
                 <Link to={RoutePaths.Login} style={linkStyle}>
                   <Button
@@ -82,8 +77,8 @@ const logOut=()=>{
                 </Link>
               </>
             )}
-            {items.map((item,index)=>{
-              return(
+            {items.map((item, index) => {
+              return (
                 <Link to={item.route} style={linkStyle} key={index}>
                   <Button
                     variant="text"
@@ -93,11 +88,8 @@ const logOut=()=>{
                     {item.name}
                   </Button>
                 </Link>
-              )
-
-            })
-
-            }
+              );
+            })}
             {/* <Link to="/book" style={linkStyle}>
               <Button
                 variant="text"
@@ -118,17 +110,18 @@ const logOut=()=>{
               Cart
             </Button>
           </Link>
-          {user.id &&  <Link to="/book" style={linkStyle}>
-            <Button
-              variant="text"
-              color="error"
-              sx={{ textTransform: "capitalize" }}
-              onClick={()=>logOut}
-            >
-              Logout
-            </Button>
-          </Link>}
-          
+          {!!authContext.user.id && (
+            <Link to="/book" style={linkStyle}>
+              <Button
+                variant="text"
+                color="error"
+                sx={{ textTransform: "capitalize" }}
+                onClick={logOut}
+              >
+                Logout
+              </Button>
+            </Link>
+          )}
         </Box>
       </Box>
     </Container>
