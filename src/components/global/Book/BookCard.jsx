@@ -8,6 +8,10 @@ import { Box, Chip, Stack } from "@mui/material";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
+//=====================================================================================================
+//   Ye Card vala Component copy nahi karna hai khud ka vaparana hai 
+//====================================================================================================
+
 const BookCard = ({ name, price, description, category, img }) => {
   return (
     <Box
@@ -39,7 +43,7 @@ const BookCard = ({ name, price, description, category, img }) => {
           {description}
         </Typography>
         <Typography variant="h6" >
-        ₹ {price}
+        &#8377; {price}
         </Typography>
         <Button variant="contained"  startIcon={<ShoppingCartIcon />} sx={{marginTop:"auto",backgroundColor:"#ea3c53","&:hover": {
               backgroundColor: "#e60026"
