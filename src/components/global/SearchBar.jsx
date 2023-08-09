@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { List, ListItem, ListItemText, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import bookService from "../../services/book.service";
 import { useEffect, useState } from "react";
 
@@ -26,7 +27,6 @@ const SearchBar = () => {
     setOpenSearchResult(true);
   };
 
-
   return (
     <>
       <div
@@ -34,6 +34,9 @@ const SearchBar = () => {
         onClick={() => {
           setOpenSearchResult(false);
           document.body.classList.remove("search-results-open");
+          setbookList([]);
+          setquery("");
+
         }}
       ></div>
       <Box
@@ -46,13 +49,14 @@ const SearchBar = () => {
           gap: "10px",
           padding: "10px",
           backgroundColor: "#f5f5f5",
+     
         }}
       >
         <TextField
           type="text"
           placeholder="What are you looking for ..."
           size="small"
-          sx={{ width: "422px" }}
+          sx={{ width: "422px",zIndex:20,backgroundColor:"#fafafa" }}
           value={query}
           onChange={(e) => setquery(e.target.value)}
         />
@@ -61,6 +65,7 @@ const SearchBar = () => {
           sx={{
             textTransform: "capitalize",
             backgroundColor: "#80bf32",
+            zIndex:20,
             "&:hover": {
               backgroundColor: "#339933",
             },
@@ -76,10 +81,11 @@ const SearchBar = () => {
             sx={{
               position: "absolute",
               top: "70px",
-              backgroundColor: "#dedede",
-              width: "75%",
+              backgroundColor: "#fafafa",
+              width: "65%",
               zIndex: 2,
               borderRadius: "0.5rem",
+              boxShadow: 3,
             }}
           >
             {bookList?.length === 0 && (
@@ -90,14 +96,41 @@ const SearchBar = () => {
               {bookList?.length > 0 &&
                 bookList.map((item, i) => {
                   return (
-                    <ListItem sx={{ display: "flex" }} key={item.name}>
+                    <ListItem
+                      sx={{
+                        display: "flex",
+                        gap: "10px",
+                        "&:hover": {
+                          backgroundColor: "#fef7e7",
+                        },
+                      }}
+                      key={item.name}
+                    >
+                      <img
+                        src={item.base64image}
+                        style={{ width: "3rem", height: "5rem" }}
+                      />
                       <Stack sx={{ flexGrow: "1" }}>
                         <Typography variant="h6">{item.name}</Typography>
-                        <Typography variant="body1">{item.description}</Typography>
+                        <Typography variant="body1">
+                          {item.description}
+                        </Typography>
                       </Stack>
                       <Stack direction="row" spacing={4}>
-                        <Typography variant="h6">Rs. {item.price}</Typography>
-                        <Button variant="contained" onClick={() => {}}>Add to Cart</Button>
+                        <Typography variant="h6">₹ {item.price}</Typography>
+                        <Button
+                          variant="contained"
+                          startIcon={<ShoppingCartIcon />}
+                          sx={{
+                            marginTop: "auto",
+                            backgroundColor: "#ea3c53",
+                            "&:hover": {
+                              backgroundColor: "#e60026",
+                            },
+                          }}
+                        >
+                          Add
+                        </Button>
                       </Stack>
                     </ListItem>
                   );

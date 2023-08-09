@@ -434,6 +434,7 @@ body.open-menu {
   right: 0;
   left: 0;
   z-index: 1;
+  background-color: #0000002e;
 }
 
 @media (max-width: 1199px) {
@@ -482,4 +483,11 @@ body.open-menu {
 
 .loader-open .loader-wrapper {
   display: flex;
+}
+
+.no-product{
+  font-size: 1.2rem;
+  margin: auto;
+  text-align: center;
+  margin: 2rem;
 }
