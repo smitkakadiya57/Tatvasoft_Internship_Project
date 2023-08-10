@@ -16,15 +16,15 @@ const initialValues = {
   firstName: "",
   lastName: "",
   email: "",
-  roleId: 2,
+  roleId: 3,
   password: "",
   confirmPassword: "",
 };
 
 
 const roleList = [
-  { id: 2, name: "buyer" },
-  { id: 3, name: "seller" },
+  { id: 2, name: "seller" },
+  { id: 3, name: "buyer" },
 ];
 
 
