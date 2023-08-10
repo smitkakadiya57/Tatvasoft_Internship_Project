@@ -5,6 +5,7 @@ import Register from "../../pages/Register";
 import Book from "../../pages/Book";
 import Home from "../../pages/Home";
 import BookListing from "../../pages/BookListing";
+import EditBook from "../../pages/EditBook";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuthContext } from "../../context/auth";
 
@@ -15,7 +16,11 @@ const MainNavigation = () => {
 
   return (
     <Routes>
-      <Route exact path={RoutePaths.Home} element={authContext.user.id ?  <BookListing/>: Redirect}/>
+      <Route
+        exact
+        path={RoutePaths.Home}
+        element={authContext.user.id ? <BookListing /> : Redirect}
+      />
       <Route exact path={RoutePaths.Login} element={<Login />} />
       <Route exact path={RoutePaths.Register} element={<Register />} />
       <Route
@@ -31,7 +36,17 @@ const MainNavigation = () => {
       <Route
         exact
         path={RoutePaths.Other}
-        element={authContext.user.id ? <Book />: Redirect}
+        element={authContext.user.id ? <BookListing /> : Redirect}
+      />
+      <Route
+        exact
+        path={RoutePaths.EditBook}
+        element={authContext.user.id ? <EditBook /> : Redirect}
+      />
+      <Route
+        exact
+        path={RoutePaths.AddBook}
+        element={authContext.user.id ? <EditBook /> : Redirect}
       />
     </Routes>
   );
