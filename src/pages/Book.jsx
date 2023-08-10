@@ -200,7 +200,7 @@ const Book = () => {
         onClose={() => setOpen(false)}
         onConfirm={() => onConfirmDelete()}
         title="Delete book"
-        description="Are you sure you want to delete this book?"
+        description="Pakka Delete karana hai ek bar soch lo"
       />
     </Container>
   );
