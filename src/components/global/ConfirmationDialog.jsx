@@ -11,7 +11,7 @@ const ConfirmationDialog = (props) => {
   
 
   return (
-    <Dialog open={open} onClose={() => onClose()}>
+    <Dialog open={open} onClose={() => onClose()} fullWidth> 
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
