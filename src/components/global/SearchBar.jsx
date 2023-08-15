@@ -3,7 +3,14 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
-import { List, ListItem, ListItemText, Stack, Typography } from "@mui/material";
+import {
+  Container,
+  List,
+  ListItem,
+  ListItemText,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -36,9 +43,9 @@ const SearchBar = () => {
           document.body.classList.remove("search-results-open");
           setbookList([]);
           setquery("");
-
         }}
       ></div>
+
       <Box
         sx={{
           height: "80px",
@@ -49,14 +56,13 @@ const SearchBar = () => {
           gap: "10px",
           padding: "10px",
           backgroundColor: "#f5f5f5",
-     
         }}
       >
         <TextField
           type="text"
           placeholder="What are you looking for ..."
           size="small"
-          sx={{ width: "422px",zIndex:20,backgroundColor:"#fafafa" }}
+          sx={{ width: "422px", zIndex: 20, backgroundColor: "#fafafa" }}
           value={query}
           onChange={(e) => setquery(e.target.value)}
         />
@@ -65,7 +71,7 @@ const SearchBar = () => {
           sx={{
             textTransform: "capitalize",
             backgroundColor: "#80bf32",
-            zIndex:20,
+            zIndex: 20,
             "&:hover": {
               backgroundColor: "#339933",
             },
@@ -110,14 +116,23 @@ const SearchBar = () => {
                         src={item.base64image}
                         style={{ width: "3rem", height: "5rem" }}
                       />
-                      <Stack sx={{ flexGrow: "1" }}>
+                      <Box sx={{ flexGrow: "1" }}>
                         <Typography variant="h6">{item.name}</Typography>
                         <Typography variant="body1">
                           {item.description}
                         </Typography>
-                      </Stack>
-                      <Stack direction="row" spacing={4}>
-                        <Typography variant="h6">₹ {item.price}</Typography>
+                      </Box>
+                      <Box
+                        spacing={4}
+                        sx={{
+                          display: "flex",
+                          gap: "1rem",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Typography variant="h6" sx={{ width: "100px" }}>
+                          ₹ {item.price}
+                        </Typography>
                         <Button
                           variant="contained"
                           startIcon={<ShoppingCartIcon />}
@@ -131,7 +146,7 @@ const SearchBar = () => {
                         >
                           Add
                         </Button>
-                      </Stack>
+                      </Box>
                     </ListItem>
                   );
                 })}
