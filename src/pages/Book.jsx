@@ -137,7 +137,7 @@ const Book = () => {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="center">{row.price}</TableCell>
+                <TableCell align="center">&#8377; {row.price}</TableCell>
                 <TableCell align="center">
                   {" "}
                   {categories.find((c) => c.id === row.categoryId)?.name}
