@@ -108,7 +108,9 @@ const EditCategory = () => {
                 "&:hover": {
                   backgroundColor: "#e60026",
                 },
-              }}>
+              }}
+              onClick={()=>navigate("/category")}
+              >
               Cancel
             </Button>
           </Grid>

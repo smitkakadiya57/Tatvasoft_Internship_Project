@@ -84,7 +84,7 @@ const Category = () => {
       >
         <TextField
           type="text"
-          placeholder="Search Book"
+          placeholder="Search Category"
           size="small"
           sx={{ width: "40%", backgroundColor: "#fafafa", flexWrap: "wrap" }}
           onChange={(e) => {
@@ -100,7 +100,7 @@ const Category = () => {
           ADD CATEGORY
         </Button>
       </Box>
-      {/* <ConfirmationDialog/> */}
+
       <TableContainer>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

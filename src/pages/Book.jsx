@@ -114,7 +114,7 @@ const Book = () => {
           ADD BOOK
         </Button>
       </Box>
-      {/* <ConfirmationDialog/> */}
+      
       <TableContainer>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -200,7 +200,7 @@ const Book = () => {
         onClose={() => setOpen(false)}
         onConfirm={() => onConfirmDelete()}
         title="Delete book"
-        description="Pakka Delete karana hai ek bar soch lo"
+        description="Are you sure you want to delete this book ?"
       />
     </Container>
   );
