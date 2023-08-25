@@ -5,6 +5,12 @@ It is Book Selling e-commerce website.It is a part of 15 Days Internship with Ta
 ## Demo Video
 https://youtu.be/r4fXhOIkZU4?si=2dIhk2Hd_X_4Muer
 
+
+## Tech Stack
+**Client:** ReactJs, Material UI
+
+**Server:** NodeJs, ExpressJs, MongoDB
+
 ## Features
 
 - Book Listing : list of all available books
